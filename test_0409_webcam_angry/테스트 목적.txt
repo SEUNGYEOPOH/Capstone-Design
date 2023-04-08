@@ -1,0 +1,6 @@
+https://github.com/dongdv95/yolov5-deepsort-web 따라해보기
+
+test_0321 파일이 홀라당 날아가서 다시 했습니다.
+
+
+requirements.txt에 django, boto3,yolov5 추가 했습니다.
