@@ -6,7 +6,7 @@ from yolov5.utils.torch_utils import select_device, time_sync
 from yolov5.utils.plots import Annotator, colors
 from deep_sort.utils.parser import get_config
 from deep_sort.deep_sort import DeepSort
-import cv2
+import cv2,boto3
 from PIL import Image as im
 # Create your views here.
 def index(request):
@@ -28,8 +28,34 @@ deepsort = DeepSort('osnet_x0_25',
 # Get names and colors
 names = model.module.names if hasattr(model, 'module') else model.names
 
+
+#################################
+STREAM_NAME = "capstonVideo"
+kvs = boto3.client("kinesisvideo", )
+# Grab the endpoint from GetDataEndpoint
+endpoint = kvs.get_data_endpoint(
+    APIName="GET_HLS_STREAMING_SESSION_URL",
+    StreamName=STREAM_NAME
+    )['DataEndpoint']
+
+
+#print(endpoint)
+
+
+# # Grab the HLS Stream URL from the endpoint
+kvam = boto3.client("kinesis-video-archived-media", endpoint_url=endpoint)
+url = kvam.get_hls_streaming_session_url(
+    StreamName=STREAM_NAME,
+    #PlaybackMode="ON_DEMAND",
+    PlaybackMode="LIVE"
+    )['HLSStreamingSessionURL']
+
+
+#print(url)
+##########################################
+
 def stream():
-    cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture(url)
     model.conf = 0.45
     model.iou = 0.5
     model.classes = [0,64,39]
