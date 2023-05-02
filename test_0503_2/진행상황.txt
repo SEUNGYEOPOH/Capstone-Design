@@ -1,0 +1,10 @@
+https://github.com/dongdv95/yolov5-deepsort-web 따라해보기
+
+test_0321 파일이 홀라당 날아가서 다시 했습니다.
+
+
+requirements.txt에 django, boto3,yolov5 추가 했습니다.
+
+test_0410
+view.py - 1. threading 모듈을 사용해 객체탐지 부분을 백그라운드에서 실행하고, 결과만 http요청을 받았을 때 리턴하도록 수정
+          2. id값이 5이상일 때 imwrite으로 사진 저장하는 기능 구현 but 5이상일때 매 프레임마다 사진을 저장함. 수정해야합니다.
