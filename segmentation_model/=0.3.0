@@ -1,0 +1,23 @@
+Looking in indexes: https://pypi.org/simple, https://us-python.pkg.dev/colab-wheels/public/simple/
+Requirement already satisfied: albumentations in /usr/local/lib/python3.9/dist-packages (1.2.1)
+Collecting albumentations
+  Downloading albumentations-1.3.0-py3-none-any.whl (123 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 123.5/123.5 KB 8.7 MB/s eta 0:00:00
+Requirement already satisfied: numpy>=1.11.1 in /usr/local/lib/python3.9/dist-packages (from albumentations) (1.22.4)
+Requirement already satisfied: qudida>=0.0.4 in /usr/local/lib/python3.9/dist-packages (from albumentations) (0.0.4)
+Requirement already satisfied: opencv-python-headless>=4.1.1 in /usr/local/lib/python3.9/dist-packages (from albumentations) (4.7.0.72)
+Requirement already satisfied: PyYAML in /usr/local/lib/python3.9/dist-packages (from albumentations) (6.0)
+Requirement already satisfied: scipy in /usr/local/lib/python3.9/dist-packages (from albumentations) (1.10.1)
+Requirement already satisfied: scikit-image>=0.16.1 in /usr/local/lib/python3.9/dist-packages (from albumentations) (0.19.3)
+Requirement already satisfied: scikit-learn>=0.19.1 in /usr/local/lib/python3.9/dist-packages (from qudida>=0.0.4->albumentations) (1.2.2)
+Requirement already satisfied: typing-extensions in /usr/local/lib/python3.9/dist-packages (from qudida>=0.0.4->albumentations) (4.5.0)
+Requirement already satisfied: PyWavelets>=1.1.1 in /usr/local/lib/python3.9/dist-packages (from scikit-image>=0.16.1->albumentations) (1.4.1)
+Requirement already satisfied: pillow!=7.1.0,!=7.1.1,!=8.3.0,>=6.1.0 in /usr/local/lib/python3.9/dist-packages (from scikit-image>=0.16.1->albumentations) (8.4.0)
+Requirement already satisfied: packaging>=20.0 in /usr/local/lib/python3.9/dist-packages (from scikit-image>=0.16.1->albumentations) (23.0)
+Requirement already satisfied: tifffile>=2019.7.26 in /usr/local/lib/python3.9/dist-packages (from scikit-image>=0.16.1->albumentations) (2023.3.21)
+Requirement already satisfied: imageio>=2.4.1 in /usr/local/lib/python3.9/dist-packages (from scikit-image>=0.16.1->albumentations) (2.25.1)
+Requirement already satisfied: networkx>=2.2 in /usr/local/lib/python3.9/dist-packages (from scikit-image>=0.16.1->albumentations) (3.0)
+Requirement already satisfied: joblib>=1.1.1 in /usr/local/lib/python3.9/dist-packages (from scikit-learn>=0.19.1->qudida>=0.0.4->albumentations) (1.1.1)
+Requirement already satisfied: threadpoolctl>=2.0.0 in /usr/local/lib/python3.9/dist-packages (from scikit-learn>=0.19.1->qudida>=0.0.4->albumentations) (3.1.0)
+Installing collected packages: albumentations
+Successfully installed albumentations-1.3.0
