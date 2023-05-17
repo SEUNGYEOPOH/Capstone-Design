@@ -16,13 +16,13 @@ def measure(img,thres='', dpi=99.9998):
     
     imax = np.amax(y)
     imin = np.amin(y) # set to 0
-    thres10 = int((imax-imin)/10)*8
+    thres10 = int((imax-imin)/10)
 
     # threshold value for black
     if thres == '':
         thres = thres10
         
-    y2 = y[np.where(y < thres)] # slice array and count 
+    y2 = y[np.where(y > thres)] # slice array and count 
     count = y2.size
 
     # Calculate crack percentage
