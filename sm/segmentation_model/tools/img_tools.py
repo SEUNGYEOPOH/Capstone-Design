@@ -30,6 +30,6 @@ def measure(img,thres='', dpi=99.9998):
     
     area = ((w*h)*percentage)/(dpi*39.37)**2
 
-    print(f"Area: {area} square meters")
+#     print(f"Area: {area} square meters")
     
     return area
