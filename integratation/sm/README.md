@@ -1,2 +1,0 @@
-# Capstone-Design
-Capstone Design
