@@ -12,17 +12,8 @@
             </b-input-group>
             <!-- <datatableVue/> -->
             <b-table :items="users" :fields="fields"></b-table>
-            <!-- <b-pagination-nav
-                pills
-                v-model="currentPage"
-                :total-rows="totalRows"
-                :per-page="perPage"
-                size="lg"
-                align="center"
-            ></b-pagination-nav> -->
             <b-pagination-nav pills size='lg' number-of-pages="10" base-url="#" align="center"></b-pagination-nav>
-            </b-container>
-        
+        </b-container>
     </div>
 </template>
 
@@ -33,7 +24,8 @@ import { BTable } from 'bootstrap-vue';
 export default {
 name: 'DataTable',
 components: {
-    BTable
+    BTable,
+    axios
 },
 data() {
     return {

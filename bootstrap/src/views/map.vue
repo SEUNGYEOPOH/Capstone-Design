@@ -13,6 +13,11 @@
             <l-circle-marker v-for="(marker, index) in layer.markers" :key="index" :lat-lng="marker.latlng"
                 :color="marker.color" :id="marker.id" @click="markerOnClick">
             </l-circle-marker>
+            <l-marker
+                v-for="marker in markers"
+                :key="marker.name"
+                :lat-lng="marker.latLng"
+            ></l-marker>    
         </l-layer-group>
         </l-map>
 
@@ -27,8 +32,12 @@
 <script>
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import seoulmap from '../seoulmap.geojson'
+import { latLng, Icon } from 'leaflet';
+import markerShadowImg from 'leaflet/dist/images/marker-shadow.png';
+import markerRetinaImg from 'leaflet/dist/images/marker-icon-2x.png';
+import seoulmap from '../assets/seoulmap.geojson'
 import Navbar from '../components/layouts/navbar.vue'
+
 import { LMap, LTileLayer, LLayerGroup, LCircleMarker } from 'vue2-leaflet';
 
 /* eslint-disable */
@@ -39,7 +48,8 @@ export default {
         LTileLayer,
         LLayerGroup,
         LCircleMarker,
-        Navbar
+        Navbar,
+        seoulmap
     },
     data () {
     return {
@@ -47,8 +57,20 @@ export default {
         attribution:
             '&copy; <a target="_blank" href="http://osm.org/copyright">OpenStreetMap</a> contributors',
         zoom: 13,
-        center: [37.51867,126.97806],
+        center: latLng[37.51867,126.97806],
         bounds: null,
+        markerImg: markerImg,
+        markerShadowImg: markerShadowImg,
+        markers:[
+            {
+                name:'jongro',
+                latLng:[37.59491732,126.9773213]
+            },
+            {
+                name:'yongsan',
+                latLng:[37.53138497,126.979907]
+            }
+        ],
         locationlayers: [
             {
             name: '자치구',
@@ -88,7 +110,13 @@ export default {
         const map = L.map('map',{ zoomControl: false , attributionControl: false}).setView([37.56667,126.97806], 11);
         // 서울의 위경도 경계 37.715133, 126.734086부터 37.413294, 127.269311
         // GeoJSON 데이터를 가져와서 변수에 저장
-        Lmap.dragging.disable();  
+        map.dragging.disable();
+        delete Icon.Default.prototype._getIconUrl;
+        Icon.Default.mergeOptions({
+            iconRetinaUrl: markerRetinaImg,
+            iconUrl: markerImg,
+            shadowUrl: markerShadowImg,
+        });  
     }
 }
 </script>
