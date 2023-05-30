@@ -1,6 +1,6 @@
-<template>
-    <div>
-        <b-navbar toggleable="lg" type="dark" variant="info">
+<template id="test">
+    <div id = "header">
+        <b-navbar id="test" toggleable="lg" type="dark" variant="info" >
             <b-navbar-brand style="font-size: 30px">Crowd Guard</b-navbar-brand>
 
             <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -26,12 +26,19 @@ export default {
     name:"Navbar"
 };
 </script>
-
+.
 <style>
 
+
+.header{
+    height: 1024px;
+    width: 101px;
+}
 .nav-item{
     font-size: 20px;
+    width : 101px;
 }
+
 /* .button{
     margin-left: auto;
 } */

@@ -1,7 +1,6 @@
 import Vue from "vue";
 import VueRouter from 'vue-router'
 import Detect from './views/Detect';
-import map from "./views/map";
 import mapping from './views/mapping'
 
 Vue.use(VueRouter);
@@ -12,9 +11,7 @@ const router = new VueRouter({
     routes: [
         {path:"/Detect",
         component: Detect},
-        {path:"/",
-        component: map},
-        {path:'/mapping',
+        {path:'/',
         component:mapping}
     ]
 });

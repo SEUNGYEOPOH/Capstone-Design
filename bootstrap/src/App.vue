@@ -1,5 +1,5 @@
 <template>
-    <div id="map">
+    <div id="mapping">
         <Navbar />
         <router-view></router-view>
     </div>    
@@ -15,6 +15,16 @@ export default {
     }
 }
 </script>
-<style>
 
+<style>
+.mapping{
+    margin : 0;
+    float: left;
+    padding: 0;
+    position: relative;
+}
+.router-view-container {
+    width: 1390px;
+    height: 850px;
+  }
 </style>
