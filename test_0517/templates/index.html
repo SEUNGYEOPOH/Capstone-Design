@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script>
+        $(document).ready(function(){
+        
+            $("#dbdb_1").load("{% url 'dbdb' %}");
+        
+        });
+        
+
+    
+        setInterval(updateNumber, 1000); // 1초마다 updateNumber 함수 호출
+
+        
+    </script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>s3 이미지 객체 불러오기</title>
+</head>
+<body>
+    <h1>zzㅋㅋㅋㅋ</h1>
+    <a href="{% url 'dbdb' %}">dbdb</a>
+    <div style = 'background-color: hsl(240, 100%, 50%, 0.5); padding:5px'>
+        <div style='background-color: red'>
+            <h1>동영상 들어갈 자리 </h1>
+            <div id = 'tt'>
+               
+            </div>
+            <img src="{% url 'video_feed' %}">
+        </div>
+        
+        <div id='dbdb_1' style='background-color: green'>
+        </div>
+        <div>
+            
+        </div>
+    <div>    
+</body>
+
+
+
+</html>

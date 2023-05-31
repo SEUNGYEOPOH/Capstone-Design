@@ -1,0 +1,20 @@
+<div id="dbdb_2">
+<button id = "btn1">새로고침</button>
+{% if dbdb_list %}
+    <ul>
+    {% for dbdb in dbdb_list %}
+        <li>{{ dbdb.id }}{{ dbdb.c_date }}<img src="{{dbdb.img_url}}"></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>질문이 없습니다.</p>
+{% endif %}
+</div>
+
+<script>
+    document.getElementById("btn1").addEventListener('click',refresh);
+    var url = "{% url 'dbdb' %}" ;
+    function refresh(){  
+          $("#dbdb_2").load(url + "#dbdb_2");
+    }
+</script>
