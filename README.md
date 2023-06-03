@@ -26,6 +26,7 @@ Capstone Design
         </td>
         <td width="100" align="center">
             <a href="https://github.com/yoglee64">
+                <img src="https://github.com/SEUNGYEOPOH/Capstone-Design/assets/81912557/a30537af-cc71-4a81-9509-ead10a7799d6" width="60" height="60">
             </a>
         </td>
     </tr>
