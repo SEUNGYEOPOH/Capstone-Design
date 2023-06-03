@@ -1,19 +1,19 @@
 <template id="test">
     <div id = "header">
         <b-navbar id="test" toggleable="lg" navbar-skyblue bg-sky>
-            <b-navbar-brand style="font-size: 40px; color: rgb(51, 178, 228); ">Crowd Guard</b-navbar-brand>
+            <b-navbar-brand style="font-size: 40px; color: rgb(51, 178, 228); ">
+                <img src="@/assets/crowdguardlogo.png" style="height: 40px; width:auto;">
+                Crowd Guard
+            </b-navbar-brand>
             <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
             <b-collapse id="nav-collapse" is-nav>
             <b-navbar-nav>
-                <b-nav-item class = "test" href="/" style="text-align: center;">
-             
-                    <img src="@/assets/map.png" alt="" width="25" height="25" class="d-inline-block align-text-top">
-                     Map
+                <b-nav-item href="/" style="text-align: center;">
+                    <img src="@/assets/map.png" width="25" height="25" class="d-inline-block align-text-top">
+                    Map
                 </b-nav-item>
-                <b-nav-item href="/Detect">
-                
-                    <img src="@/assets/cctv.png" alt="" width="25" height="25" class="d-inline-block align-text-top">
-                   
+                <b-nav-item href="/Detect" style="text-align: center;">
+                    <img src="@/assets/cctv.png" width="25" height="25" class="d-inline-block align-text-top">
                     Detect
                 </b-nav-item>
             </b-navbar-nav>
@@ -43,7 +43,7 @@ export default {
 }
 .nav-item{
     font-size: 25px;
-    width : 101px;
+    width : 180px;
     padding-right: 40px; 
 }
 .navbar-brand {
@@ -56,28 +56,3 @@ export default {
 } */
 </style> 
 
-<script>
-/* eslint-disable */
-export default {
-    name:"Navbar"
-};
-</script>
-.
-<style>
-
-
-.header{
-    height: 1024px;
-    width: 101px;
-}
-.nav-item{
-    font-size: 20px;
-    width : 200px;
-}
-.b-button{
-    height: 25%;
-}
-/* .button{
-    margin-left: auto;
-} */
-</style>
