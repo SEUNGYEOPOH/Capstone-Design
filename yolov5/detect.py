@@ -318,7 +318,6 @@ def area_app(save_path):
             mask_arr = np.where(mask_arr<5,mask_arr,0)
             mask_arr = np.where(mask_arr>0,255,0)
             mask = Image.fromarray(mask_arr)
-            mask.show()
             mask.save(f'./video/mask/mask_{j}.png')
             
             txt = np.loadtxt(os.path.join(txt_path,f'test_video_{int(fps*1.5*i)}.txt'))
