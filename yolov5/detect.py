@@ -181,17 +181,6 @@ def run(
                         xywh = (xyxy2xywh(torch.tensor(xyxy).view(1, 4)) / gn).view(-1).tolist()  # normalized xywh
                         line = (cls, *xywh, conf) if save_conf else (cls, *xywh)  # label format
                         
-                        #
-                        a_1 = '00'
-                        a_2 = '0'
-                        if len(txt_path[11:])==1:
-                            txt_path = f'{txt_path[:11]}{a_1}{txt_path[11:]}'
-                        elif len(txt_path[11:])==2:
-                            txt_path = f'{txt_path[:11]}{a_2}{txt_path[11:]}'
-                        else:
-                            txt_path = txt_path
-                        # 
-                        
                         with open(f'{txt_path}.txt', 'a') as f:
 #                             print(f)
                             f.write(('%g ' * len(line)).rstrip() % line + '\n')
@@ -310,15 +299,15 @@ def area_app(save_path):
         frame1 = cv2.resize(frame, (640, 640))
         
         if(int(cap.get(1)) % (fps*1.5) == 0):
-            cv2.imwrite(f'./video/cap/cap_{j}.png', frame1)
-            fr = cv2.imread(f'./video/cap/cap_{j}.png')
+            cv2.imwrite(f'./runs/detect/segmentation/cap/cap_{j}.png', frame1)
+            fr = cv2.imread(f'./runs/detect/segmentation/cap/cap_{j}.png')
             
             mask_arr = model.predict_segmentation(inp=fr)
             mask_arr = np.where(mask_arr>2,mask_arr,0)
             mask_arr = np.where(mask_arr<5,mask_arr,0)
             mask_arr = np.where(mask_arr>0,255,0)
             mask = Image.fromarray(mask_arr)
-            mask.save(f'./video/mask/mask_{j}.png')
+            mask.save(f'./runs/detect/segmentation/mask/mask_{j}.png')
             
             txt = np.loadtxt(os.path.join(txt_path,f'test_video_{int(fps*1.5*i)}.txt'))
             area = round(measure(mask, txt),2)
@@ -337,13 +326,12 @@ def area_app(save_path):
     fps = cap.get(cv2.CAP_PROP_FPS)
     fourcc = cv2.VideoWriter_fourcc(*'DIVX')
 
-    out = cv2.VideoWriter('video/output.mp4', fourcc, fps, (int(width), int(height)))
+    out = cv2.VideoWriter('./runs/detect/segmentation/output.mp4', fourcc, fps, (int(width), int(height)))
     while (cap.isOpened()):
         ret, frame = cap.read()
         if not ret:
             break
         cv2.rectangle(frame,(985,670),(1500,750),(242,252,94),-1)
-        font = './DejaVuSans.ttf'
         cv2.putText(frame, f'AREA: {final}m2', (1000,705), cv2.FONT_HERSHEY_PLAIN, 2,
                         (94,11,9), 3, cv2.LINE_AA)
         cv2.imshow('CAM_Window', frame)
