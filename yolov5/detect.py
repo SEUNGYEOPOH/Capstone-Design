@@ -299,15 +299,15 @@ def area_app(save_path):
         frame1 = cv2.resize(frame, (640, 640))
         
         if(int(cap.get(1)) % (fps*1.5) == 0):
-            cv2.imwrite(f'./runs/detect/segmentation/cap/cap_{j}.png', frame1)
-            fr = cv2.imread(f'./runs/detect/segmentation/cap/cap_{j}.png')
+            cv2.imwrite(f'./runs/segmentation/cap/cap_{j}.png', frame1)
+            fr = cv2.imread(f'./runs/segmentation/cap/cap_{j}.png')
             
             mask_arr = model.predict_segmentation(inp=fr)
             mask_arr = np.where(mask_arr>2,mask_arr,0)
             mask_arr = np.where(mask_arr<5,mask_arr,0)
             mask_arr = np.where(mask_arr>0,255,0)
             mask = Image.fromarray(mask_arr)
-            mask.save(f'./runs/detect/segmentation/mask/mask_{j}.png')
+            mask.save(f'./runs/segmentation/mask/mask_{j}.png')
             
             txt = np.loadtxt(os.path.join(txt_path,f'test_video_{int(fps*1.5*i)}.txt'))
             area = round(measure(mask, txt),2)
@@ -326,7 +326,7 @@ def area_app(save_path):
     fps = cap.get(cv2.CAP_PROP_FPS)
     fourcc = cv2.VideoWriter_fourcc(*'DIVX')
 
-    out = cv2.VideoWriter('./runs/detect/segmentation/output.mp4', fourcc, fps, (int(width), int(height)))
+    out = cv2.VideoWriter('./runs/segmentation/output.mp4', fourcc, fps, (int(width), int(height)))
     while (cap.isOpened()):
         ret, frame = cap.read()
         if not ret:
