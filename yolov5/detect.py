@@ -160,16 +160,7 @@ def run(
             save_path = str(save_dir / p.name)  # im.jpg
             txt_path = str(save_dir / 'labels' / p.stem) + ('' if dataset.mode == 'image' else f'_{frame}')  # im.txt
             
-            #
-            a_1 = '00'
-            a_2='0'
-            if len(txt_path[11:])==1:
-                txt_path = f'{txt_path[:11]}{a_1}{txt_path[11:]}'
-            elif len(txt_path[11:])==2:
-                txt_path = f'{txt_path[:11]}{a_2}{txt_path[11:]}'
-            else:
-                txt_path = txt_path
-            #    
+               
                
             s += '%gx%g ' % im.shape[2:]  # print string
             gn = torch.tensor(im0.shape)[[1, 0, 1, 0]]  # normalization gain whwh
@@ -178,7 +169,7 @@ def run(
             if len(det):
                 # Rescale boxes from img_size to im0 size
                 det[:, :4] = scale_boxes(im.shape[2:], det[:, :4], im0.shape).round()
-
+                
                 # Print results
                 for c in det[:, 5].unique():
                     n = (det[:, 5] == c).sum()  # detections per class
@@ -189,13 +180,29 @@ def run(
                     if save_txt:  # Write to file
                         xywh = (xyxy2xywh(torch.tensor(xyxy).view(1, 4)) / gn).view(-1).tolist()  # normalized xywh
                         line = (cls, *xywh, conf) if save_conf else (cls, *xywh)  # label format
+                        
+                        #
+                        a_1 = '00'
+                        a_2 = '0'
+                        if len(txt_path[11:])==1:
+                            txt_path = f'{txt_path[:11]}{a_1}{txt_path[11:]}'
+                        elif len(txt_path[11:])==2:
+                            txt_path = f'{txt_path[:11]}{a_2}{txt_path[11:]}'
+                        else:
+                            txt_path = txt_path
+                        # 
+                        
                         with open(f'{txt_path}.txt', 'a') as f:
+#                             print(f)
                             f.write(('%g ' * len(line)).rstrip() % line + '\n')
 
                     if save_img or save_crop or view_img:  # Add bbox to image
                         c = int(cls)  # integer class
                         label = None if hide_labels else (names[c] if hide_conf else f'{names[c]} {conf:.2f}')
-                        annotator.box_label(xyxy, label, color=colors(c, True))
+                        if names[c] == 'person':
+                            annotator.box_label(xyxy, label, color=(97, 200, 230))
+                        else:
+                            continue
                     if save_crop:
                         save_one_box(xyxy, imc, file=save_dir / 'crops' / names[c] / f'{p.stem}.jpg', BGR=True)
 
@@ -290,7 +297,7 @@ def area_app(save_path):
     j=0
     road_area = 0
     
-    cap = cv2.VideoCapture('./video/test_video.mp4')
+    cap = cv2.VideoCapture('./test_video.mp4')
     fps = cap.get(cv2.CAP_PROP_FPS)
     
     while(cap.isOpened()):
@@ -300,16 +307,19 @@ def area_app(save_path):
             break
 
         frame = cv2.resize(frame, (480, 360))
+        frame1 = cv2.resize(frame, (640, 640))
         
         if(int(cap.get(1)) % (fps*1.5) == 0):
-            cv2.imwrite(f'./video/cap/{j}.png', frame)
-            fr = cv2.imread(f'./video/cap/{j}.png')
+            cv2.imwrite(f'./video/cap/cap_{j}.png', frame1)
+            fr = cv2.imread(f'./video/cap/cap_{j}.png')
             
             mask_arr = model.predict_segmentation(inp=fr)
             mask_arr = np.where(mask_arr>2,mask_arr,0)
             mask_arr = np.where(mask_arr<5,mask_arr,0)
             mask_arr = np.where(mask_arr>0,255,0)
             mask = Image.fromarray(mask_arr)
+            mask.show()
+            mask.save(f'./video/mask/mask_{j}.png')
             
             txt = np.loadtxt(os.path.join(txt_path,f'test_video_{int(fps*1.5*i)}.txt'))
             area = round(measure(mask, txt),2)
@@ -328,13 +338,15 @@ def area_app(save_path):
     fps = cap.get(cv2.CAP_PROP_FPS)
     fourcc = cv2.VideoWriter_fourcc(*'DIVX')
 
-    out = cv2.VideoWriter('./video/output.mp4', fourcc, fps, (int(width), int(height)))
+    out = cv2.VideoWriter('video/output.mp4', fourcc, fps, (int(width), int(height)))
     while (cap.isOpened()):
         ret, frame = cap.read()
         if not ret:
             break
-        cv2.putText(frame, f'AREA: {final}m', (900,700), cv2.FONT_HERSHEY_PLAIN, 2,
-                        (0,0,255), 3, cv2.LINE_AA)
+        cv2.rectangle(frame,(985,670),(1500,750),(242,252,94),-1)
+        font = './DejaVuSans.ttf'
+        cv2.putText(frame, f'AREA: {final}m2', (1000,705), cv2.FONT_HERSHEY_PLAIN, 2,
+                        (94,11,9), 3, cv2.LINE_AA)
         cv2.imshow('CAM_Window', frame)
         out.write(frame)
         if cv2.waitKey(30) & 0xFF == ord('q'):
